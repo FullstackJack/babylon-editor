@@ -1,0 +1,16 @@
+.flex-container {
+  background-color: #f9f9f9;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.flex-item {
+  display: flex;
+  flex: 1 1 auto;
+}
+
+.flex-rows {
+  flex-direction: column;
+}

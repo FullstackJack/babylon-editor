@@ -1,0 +1,42 @@
+.view-panel {
+  background-color: lightslategrey;
+  display: flex;
+  flex-direction: column;
+  flex: 1 auto;
+
+  .panel-heading {
+    background-color: #C6C6C6;
+    padding: 3px;
+    display: flex;
+    flex: 0 0 auto;
+  }
+  .panel-body {
+    background-color: #C6C6C6;
+    display: flex;
+    flex: 1 1 auto;
+
+    ul {
+      padding: 20px;
+      margin: 0;
+      list-style: none;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-flow: row wrap;
+      justify-content: space-between;
+      align-content: flex-start;
+
+      li {
+        background: #CECECE;
+        padding: 5px;
+        width: 100px;
+        height: 100px;
+        margin-top: 10px;
+        color: white;
+        text-align: center;
+      }
+    }
+  }
+}

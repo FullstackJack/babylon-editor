@@ -1,0 +1,21 @@
+@import 'top-bar';
+@import 'viewport';
+@import 'content-browser';
+@import 'view-panel';
+@import 'flex';
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.ember-application > .ember-view {
+  background-color: #f9f9f9;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
