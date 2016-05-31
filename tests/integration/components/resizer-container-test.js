@@ -1,7 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('flex-container', 'Integration | Component | flex container', {
+moduleForComponent('resizer-container', 'Integration | Component | resizer container', {
   integration: true
 });
 
@@ -9,15 +9,15 @@ test('it renders', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
 
-  this.render(hbs`{{flex-container}}`);
+  this.render(hbs`{{resizer-container}}`);
 
   assert.equal(this.$().text().trim(), '');
 
   // Template block usage:
   this.render(hbs`
-    {{#flex-container}}
+    {{#resizer-container}}
       template block text
-    {{/flex-container}}
+    {{/resizer-container}}
   `);
 
   assert.equal(this.$().text().trim(), 'template block text');

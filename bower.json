@@ -6,6 +6,7 @@
     "ember-cli-test-loader": "0.2.2",
     "ember-qunit-notifications": "0.1.0",
     "babylonjs": "^2.3.0",
-    "perfect-scrollbar": "^0.6.11"
+    "perfect-scrollbar": "^0.6.11",
+    "blob-polyfill": "^1.0.20150320"
   }
 }

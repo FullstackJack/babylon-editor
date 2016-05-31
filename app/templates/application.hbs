@@ -1,8 +1,12 @@
 {{#top-bar}}{{/top-bar}}
-{{#flex-container}}
-  {{#view-port}}{{/view-port}}
-  {{#view-port}}{{/view-port}}
-  {{#content-browser}}{{/content-browser}}
-{{/flex-container}}
+  {{#resizer-container}}
+    {{#resizer-panel}}
+      {{#view-port}}{{/view-port}}
+    {{/resizer-panel}}
+      <div class="col-resizer"></div>
+    {{#resizer-panel}}
+      {{#content-browser}}{{/content-browser}}
+    {{/resizer-panel}}
+  {{/resizer-container}}
 {{outlet}}
 

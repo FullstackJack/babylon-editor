@@ -1,5 +1,5 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  classNames: ['flex-item content-browser']
+  classNames: ['content-browser']
 });

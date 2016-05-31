@@ -2,7 +2,6 @@
 @import 'viewport';
 @import 'content-browser';
 @import 'view-panel';
-@import 'flex';
 
 html, body {
   height: 100%;
@@ -16,6 +15,37 @@ html, body {
   height: 100%;
   width: 100%;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
+}
+
+.resizer-container {
+  width: 100%;
+  height: 100%;
+
+  .resizer-panel {
+    width: 100%;
+    height: 100%;
+  }
+
+  &.cols {
+
+    .col-resizer {
+      width: 10px;
+      height: 100%;
+      float: left;
+      background-color: #B3B3B3;
+    }
+
+    .resizer-panel {
+      background-color: #C6C6C6;
+      float: left;
+      width: 50%;
+    }
+  }
+
+  .col-resizer {
+
+    &:last-of-type {
+      display: none;
+    }
+  }
 }
