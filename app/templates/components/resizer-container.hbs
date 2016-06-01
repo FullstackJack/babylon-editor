@@ -1,5 +1,5 @@
-{{#each panels as panel}}
-  {{#resizer-panel panel.size}}
+{{#each panels as |panel index|}}
+  {{#resizer-panel percent=panel.size}}
   {{/resizer-panel}}
-  <div class="col-resizer"></div>
+  {{#resizer-handle index=index onResizer=(action 'onResizer')}}{{/resizer-handle}}
 {{/each}}

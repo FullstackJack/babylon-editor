@@ -28,11 +28,12 @@ html, body {
 
   &.cols {
 
-    .col-resizer {
+    .resizer-handle {
       width: 10px;
       height: 100%;
       float: left;
       background-color: #B3B3B3;
+      cursor: col-resize;
     }
 
     .resizer-panel {
@@ -42,7 +43,7 @@ html, body {
     }
   }
 
-  .col-resizer {
+  .resizer-handle {
 
     &:last-of-type {
       display: none;
