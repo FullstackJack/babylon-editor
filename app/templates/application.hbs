@@ -1,12 +1,16 @@
-{{#top-bar}}{{/top-bar}}
-  {{#resizer-container}}
-    {{#resizer-panel}}
-      {{#view-port}}{{/view-port}}
-    {{/resizer-panel}}
-      <div class="col-resizer"></div>
-    {{#resizer-panel}}
-      {{#content-browser}}{{/content-browser}}
-    {{/resizer-panel}}
-  {{/resizer-container}}
-{{outlet}}
+<div class="table flex-rows">
+  {{#top-bar}}{{/top-bar}}
+  <div class="table-row">
+      <div class="table-cell">
+        {{#resizer-container}}
+          {{#resizer-panel}}
+            {{#view-port}}{{/view-port}}
+          {{/resizer-panel}}
+          {{#resizer-panel}}
+            {{#content-browser}}{{/content-browser}}
+          {{/resizer-panel}}
+        {{/resizer-container}}
+      </div>
+  </div>
+</div>
 

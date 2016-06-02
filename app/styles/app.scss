@@ -2,6 +2,7 @@
 @import 'viewport';
 @import 'content-browser';
 @import 'view-panel';
+@import 'flex';
 
 html, body {
   height: 100%;
@@ -11,7 +12,6 @@ html, body {
 }
 
 .ember-application > .ember-view {
-  background-color: #f9f9f9;
   height: 100%;
   width: 100%;
   box-sizing: border-box;
@@ -29,7 +29,7 @@ html, body {
   &.cols {
 
     .resizer-handle {
-      width: 10px;
+      width: 5px;
       height: 100%;
       float: left;
       background-color: #B3B3B3;
@@ -49,4 +49,19 @@ html, body {
       display: none;
     }
   }
+}
+
+.table {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+
+.table-row {
+  display: table-row;
+  width: 100%;
+}
+
+.table-cell {
+  display: table-cell;
 }

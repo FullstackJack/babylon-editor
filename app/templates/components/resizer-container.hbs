@@ -1,5 +1,5 @@
 {{#each panels as |panel index|}}
-  {{#resizer-panel percent=panel.size}}
+  {{#resizer-panel percent=panel.percent}}
   {{/resizer-panel}}
-  {{#resizer-handle index=index onResizer=(action 'onResizer')}}{{/resizer-handle}}
+  {{#resizer-handle size=handleSize index=index resizePanels=(action 'resizePanels')}}{{/resizer-handle}}
 {{/each}}
