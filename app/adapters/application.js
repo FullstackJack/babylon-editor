@@ -1,5 +1,3 @@
-import LSAdatper from 'ember-localstorage-adapter';
+import LSAdapter from 'ember-localstorage-adapter/adapters/ls-adapter';
 
-export default LSAdatper.extend({
-  namespace: 'babylon-editor'
-});
+export default LSAdapter.extend();
