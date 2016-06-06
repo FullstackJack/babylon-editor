@@ -5,6 +5,6 @@ export default Ember.Component.extend({
   attributeBindings: ['styleString:style'],
   percent: 0,
   styleString: function(){
-    return Ember.String.htmlSafe('width: '+ this.get('percent') + '%');
+    return Ember.String.htmlSafe(`width: ${this.get('percent')}%`);
   }.property('percent')
 });

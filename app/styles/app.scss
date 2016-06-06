@@ -24,6 +24,7 @@ html, body {
   .resizer-panel {
     width: 100%;
     height: 100%;
+    position: relative;
   }
 
   &.cols {
@@ -31,22 +32,20 @@ html, body {
     .resizer-handle {
       width: 5px;
       height: 100%;
-      float: left;
       background-color: #B3B3B3;
       cursor: col-resize;
+      position: absolute;
+      right: 0;
     }
 
     .resizer-panel {
       background-color: #C6C6C6;
       float: left;
       width: 50%;
-    }
-  }
 
-  .resizer-handle {
-
-    &:last-of-type {
-      display: none;
+      &:last-of-type .resizer-handle {
+        display: none;
+      }
     }
   }
 }

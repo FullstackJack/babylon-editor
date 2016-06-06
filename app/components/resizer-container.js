@@ -9,14 +9,16 @@ export default Ember.Component.extend(ResizeAware, {
   resizeStart: { x: 0, y: 0 },
   draggingHandle: -1,
   handleSize: 5,
-  previousSize: { x: 0, y: 0 },
+  handleFactor: 0,
+  previousSize: null,
   dimensions: null,
   containerSize: Ember.computed(function(){
     var val = 0;
+    console.log(`width: ${window.innerWidth}, height: ${window.innerHeight}`);
     if(this.get('layout') === 'cols'){
-      val = window.innerWidth;
+      val = this.$().parent().width();
     } else {
-      val = window.innerHeight;
+      val = this.$().parent().height();
     }
     return val;
   }),
@@ -27,26 +29,27 @@ export default Ember.Component.extend(ResizeAware, {
       this.updatePanels(index, position);
     }
   },
-  create: function(size){
+  create: function(){
     console.log('action sent.');
     this.get('createPanel');
   },
   didInsertElement: function(){
-    var containerSize = this.get('containerSize');
-    this.reflowLayout(containerSize);
+    //var containerSize = Ember.get(this,'containerSize');
+    this.reflowLayout();
   },
   didReceiveAttrs: function(){
     console.log('panels', this.get('panels'));
   },
   init: function() {
-    var containerSize;
     this._super(...arguments);
 
     this.create(100);
     this.get('resizeService').on('didResize', event => {
-      console.log(`width: ${window.innerWidth}, height: ${window.innerHeight}`);
-      containerSize = this.get('containerSize');
-      this.reflowLayout(containerSize);
+      //console.log(`width: ${window.innerWidth}, height: ${window.innerHeight}`);
+
+      //containerSize = this.get('containerSize');
+      this.reflowLayout();
+
     });
   },
   mouseMove: function(e){
@@ -81,19 +84,16 @@ export default Ember.Component.extend(ResizeAware, {
       this.set('resizeStart', position);
     }
   },
-  reflowLayout: function(containerSize){
-    var handleSize    = this.get('handleSize'),
-        panels        = this.get('panels'),
-        handlePercent;
-    console.log('container size', containerSize);
+  reflowLayout: function(){
+    var containerSize;
 
-    // Calculate the handle percentage
-    handlePercent = (handleSize / containerSize) * 100;
-    //
-    handlePercent = (panels.length - 1) * handlePercent / panels.length;
-
-    for(var i = 0; i < panels.length; i++){
-      Ember.set(panels[i],'percent', panels[i].percent - handlePercent);
+    // Get the container size
+    if(this.get('layout') === 'cols'){
+      containerSize = this.$().width();
+    } else {
+      containerSize = this.$().parent().outerWidth();
     }
+
+    this.set('containerSize', containerSize);
   }
 });
