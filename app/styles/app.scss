@@ -30,12 +30,13 @@ html, body {
   &.cols {
 
     .resizer-handle {
-      width: 5px;
+      width: 4px;
       height: 100%;
       background-color: #B3B3B3;
       cursor: col-resize;
       position: absolute;
-      right: 0;
+      right: -2px;
+      z-index: 1;
     }
 
     .resizer-panel {
