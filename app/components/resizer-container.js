@@ -3,25 +3,19 @@ import ResizeAware from 'ember-resize/mixins/resize-aware';
 
 export default Ember.Component.extend(ResizeAware, {
   classNames: ['resizer-container'],
-  classNameBindings: ['layout'],
+  classNameBindings: ['layout', 'resizing'],
   panels: [{title: 'Panel 1', percent: '20'}, {title: 'Panel 2', percent: '60'}, {title: 'Panel 3', percent: '20'}],
   layout: 'cols',
   resizeStart: { x: 0, y: 0 },
   draggingHandle: -1,
-  handleSize: 5,
-  handleFactor: 0,
   previousSize: null,
   dimensions: null,
-  containerSize: Ember.computed(function(){
-    var val = 0;
-    console.log(`width: ${window.innerWidth}, height: ${window.innerHeight}`);
-    if(this.get('layout') === 'cols'){
-      val = this.$().parent().width();
-    } else {
-      val = this.$().parent().height();
+  resizing: Ember.computed(function(){
+    if(Number.parseInt(this.get('draggingHandle')) >= 0){
+      return 'resizing';
     }
-    return val;
-  }),
+  }).property('draggingHandle'),
+  containerSize: null,
   actions: {
     resizePanels: function(index, position){
       this.set('draggingHandle', index);
@@ -36,9 +30,6 @@ export default Ember.Component.extend(ResizeAware, {
   didInsertElement: function(){
     //var containerSize = Ember.get(this,'containerSize');
     this.reflowLayout();
-  },
-  didReceiveAttrs: function(){
-    console.log('panels', this.get('panels'));
   },
   init: function() {
     this._super(...arguments);

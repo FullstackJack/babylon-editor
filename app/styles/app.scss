@@ -48,6 +48,13 @@ html, body {
       }
     }
   }
+
+  &.resizing {
+    cursor: col-resize;
+    &.row {
+      cursor: row-resize;
+    }
+  }
 }
 
 .table {
