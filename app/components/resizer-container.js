@@ -8,7 +8,6 @@ export default Ember.Component.extend(ResizeAware, {
   layout: 'cols',
   draggingHandle: -1,
   containerSize: null,
-  previousSize: null,
   dimensions: null,
   resizeStart: { x: 0, y: 0 },
   resizePanels: Ember.computed('draggingHandle',function(){
@@ -18,11 +17,10 @@ export default Ember.Component.extend(ResizeAware, {
 
     // Copy the percents
     if(index >= 0){
-      console.log('Should copy.');
       for(var i = index; i <= index + 1; i++){
-        console.log('panels', panels[i]);
-        copy[i] = {};
-        copy[i].percent = Number.parseFloat(panels[i].percent);
+        var obj = {};
+        obj.percent = Number.parseFloat(panels[i].percent);
+        copy.push(obj);
       }
     }
     return copy;
@@ -88,17 +86,22 @@ export default Ember.Component.extend(ResizeAware, {
 
       for(var i = index; i <= index + 1; i++){
         var val = Number.parseFloat(panels[i].percent);
-          console.log('max',max);
+          console.log('max', max);
           if (i === index) {
             var newPercent = val + percent;
             console.log('newPercent',newPercent);
-            if(newPercent < max) {
+            if(newPercent > max - min) {
               console.log('New percent is less than max.');
+              newPercent = max;
+            } else {
               val += percent;
             }
           } else {
             var newPercent = val - percent;
-            if(newPercent > min) {
+            console.log(newPercent);
+            if(newPercent < min) {
+              newPercent = min;
+            } else {
               val -= percent;
             }
 
