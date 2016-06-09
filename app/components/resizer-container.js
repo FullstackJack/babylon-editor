@@ -8,6 +8,7 @@ export default Ember.Component.extend(ResizeAware, {
   layout: 'cols',
   draggingHandle: -1,
   containerSize: null,
+  handleSize: 4,
   resizeStart: { x: 0, y: 0 },
   resizePanels: Ember.computed('draggingHandle',function(){
     var panels  = this.get('panels'),
@@ -31,6 +32,12 @@ export default Ember.Component.extend(ResizeAware, {
       val = resizePanels[0].percent + resizePanels[1].percent;
     }
     return val;
+  }),
+  min: Ember.computed('containerSize', 'handleSize', function(){
+    var containerSize = this.get('containerSize'),
+        handleSize    = this.get('handleSize');
+
+    return (handleSize / containerSize) * 100;
   }),
   resizing: Ember.computed('draggingHandle', function(){
     if(Number.parseInt(this.get('draggingHandle')) >= 0){
@@ -66,7 +73,7 @@ export default Ember.Component.extend(ResizeAware, {
         panels        = this.get('panels'),
         resizePanels  = this.get('resizePanels'),
         max           = this.get('max'),
-        min = 1,
+        min           = this.get('min'),
         start,
         distance,
         percent;
