@@ -10,11 +10,11 @@ export default Ember.Component.extend(ResizeAware, {
   containerSize: null,
   resizeStart: { x: 0, y: 0 },
   resizePanels: Ember.computed('draggingHandle',function(){
-    var panels = this.get('panels'),
-        index = Number.parseInt(this.get('draggingHandle')),
-        arr = [];
+    var panels  = this.get('panels'),
+        index   = Number.parseInt(this.get('draggingHandle')),
+        arr     = [];
 
-    // Copy the percents
+    // Copy the percentages
     if(index >= 0) {
       for (var i = index; i <= index + 1; i++) {
         var obj = {};
@@ -27,21 +27,18 @@ export default Ember.Component.extend(ResizeAware, {
   max: Ember.computed('resizePanels', function() {
     var val = 0;
     var resizePanels = this.get('resizePanels');
-    console.log(resizePanels);
     if (resizePanels.length === 2){
       val = resizePanels[0].percent + resizePanels[1].percent;
     }
     return val;
   }),
-  resizing: Ember.computed(function(){
+  resizing: Ember.computed('draggingHandle', function(){
     if(Number.parseInt(this.get('draggingHandle')) >= 0){
       return 'resizing';
     }
-  }).property('draggingHandle'),
+  }),
   actions: {
     doResize: function(index, position){
-      var resizePanels = this.get('resizePanels');
-
       this.set('draggingHandle', index);
       this.set('resizeStart', position);
       this.updatePanels(index, position);
@@ -53,7 +50,7 @@ export default Ember.Component.extend(ResizeAware, {
   init: function() {
     this._super(...arguments);
     // Handle window resize event
-    this.get('resizeService').on('didResize', event => {
+    this.get('resizeService').on('didResize', () => {
       this.reflowLayout();
     });
   },
@@ -75,9 +72,9 @@ export default Ember.Component.extend(ResizeAware, {
         percent;
 
     if(index >= 0){
-      start = this.get('resizeStart');
-      distance = position.x - start.x;
-      percent = (distance / containerSize) * 100;
+      start     = this.get('resizeStart');
+      distance  = position.x - start.x;
+      percent   = (distance / containerSize) * 100;
 
       if(resizePanels[0].percent + percent > max - min){
         resizePanels[0].percent = max - min;
