@@ -8,22 +8,30 @@ export default Ember.Component.extend(ResizeAware, {
   layout: 'cols',
   draggingHandle: -1,
   containerSize: null,
-  dimensions: null,
   resizeStart: { x: 0, y: 0 },
   resizePanels: Ember.computed('draggingHandle',function(){
     var panels = this.get('panels'),
         index = Number.parseInt(this.get('draggingHandle')),
-        copy = [];
+        arr = [];
 
     // Copy the percents
-    if(index >= 0){
-      for(var i = index; i <= index + 1; i++){
+    if(index >= 0) {
+      for (var i = index; i <= index + 1; i++) {
         var obj = {};
         obj.percent = Number.parseFloat(panels[i].percent);
-        copy.push(obj);
+        arr.push(obj);
       }
     }
-    return copy;
+    return arr;
+  }),
+  max: Ember.computed('resizePanels', function() {
+    var val = 0;
+    var resizePanels = this.get('resizePanels');
+    console.log(resizePanels);
+    if (resizePanels.length === 2){
+      val = resizePanels[0].percent + resizePanels[1].percent;
+    }
+    return val;
   }),
   resizing: Ember.computed(function(){
     if(Number.parseInt(this.get('draggingHandle')) >= 0){
@@ -31,34 +39,22 @@ export default Ember.Component.extend(ResizeAware, {
     }
   }).property('draggingHandle'),
   actions: {
-    resizePanels: function(index, position){
-      var panels = this.get('panels');
+    doResize: function(index, position){
+      var resizePanels = this.get('resizePanels');
+
       this.set('draggingHandle', index);
-      console.log(this.get('draggingHandle'));
       this.set('resizeStart', position);
-      console.log(panels);
-      //this.set('resizePanels', panels.slice(index, index+2));
       this.updatePanels(index, position);
     }
   },
-  create: function(){
-    console.log('action sent.');
-    this.get('createPanel');
-  },
   didInsertElement: function(){
-    //var containerSize = Ember.get(this,'containerSize');
     this.reflowLayout();
   },
   init: function() {
     this._super(...arguments);
-
-    this.create(100);
+    // Handle window resize event
     this.get('resizeService').on('didResize', event => {
-      //console.log(`width: ${window.innerWidth}, height: ${window.innerHeight}`);
-
-      //containerSize = this.get('containerSize');
       this.reflowLayout();
-
     });
   },
   mouseMove: function(e){
@@ -72,42 +68,30 @@ export default Ember.Component.extend(ResizeAware, {
     var containerSize = this.get('containerSize'),
         panels        = this.get('panels'),
         resizePanels  = this.get('resizePanels'),
+        max           = this.get('max'),
+        min = 1,
         start,
         distance,
-        percent,
-        min = 1,
-        max;
+        percent;
 
     if(index >= 0){
-      max = resizePanels[0].percent + resizePanels[1].percent;
       start = this.get('resizeStart');
       distance = position.x - start.x;
       percent = (distance / containerSize) * 100;
 
-      for(var i = index; i <= index + 1; i++){
-        var val = Number.parseFloat(panels[i].percent);
-          console.log('max', max);
-          if (i === index) {
-            var newPercent = val + percent;
-            console.log('newPercent',newPercent);
-            if(newPercent > max - min) {
-              console.log('New percent is less than max.');
-              newPercent = max;
-            } else {
-              val += percent;
-            }
-          } else {
-            var newPercent = val - percent;
-            console.log(newPercent);
-            if(newPercent < min) {
-              newPercent = min;
-            } else {
-              val -= percent;
-            }
-
-          }
-          Ember.set(panels[i], 'percent', val);
+      if(resizePanels[0].percent + percent > max - min){
+        resizePanels[0].percent = max - min;
+        resizePanels[1].percent = min;
+      } else if(resizePanels[0].percent + percent < min) {
+        resizePanels[0].percent = min;
+        resizePanels[1].percent = max - min;
+      } else {
+        resizePanels[0].percent += percent;
+        resizePanels[1].percent -= percent;
       }
+
+      Ember.set(panels[index], 'percent', resizePanels[0].percent);
+      Ember.set(panels[index+1], 'percent', resizePanels[1].percent);
 
       this.set('resizeStart', position);
     }
@@ -121,7 +105,6 @@ export default Ember.Component.extend(ResizeAware, {
     } else {
       containerSize = this.$().height();
     }
-
     this.set('containerSize', containerSize);
   }
 });

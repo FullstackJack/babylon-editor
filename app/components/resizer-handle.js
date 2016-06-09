@@ -4,7 +4,7 @@ export default Ember.Component.extend({
   classNames: ['resizer-handle'],
   index: 0,
   mouseDown: function(e){
-    this.sendAction('resizePanels', this.get('index'), { x: e.clientX, y: e.clientY } );
+    this.sendAction('doResize', this.get('index'), { x: e.clientX, y: e.clientY } );
     return false;
   },
   // mouseMove: function(e){
