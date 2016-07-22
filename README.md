@@ -1,7 +1,6 @@
-# Babylon-editor
+# Babylon Editor
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+The goal of Babylon Editor is to create a powerful, easy-to-use editor for BabylonJS. The application will be implemented using Ember.js. To be clear, I created this projet to learn Ember 2, not for the editor itself. I've currently put development on hold for other private projects; however, thus far I have implemented a very cool resizable panel layout that allows dragging handles to resize adjacent panels. This is a key feature of the editor because it will facilitate organization of all panels including the camera viewports, scene outliner, content browser, etc.
 
 ## Prerequisites
 
@@ -25,23 +24,10 @@ You will need the following things properly installed on your computer.
 * `ember server`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
-
-### Running Tests
-
-* `ember test`
-* `ember test --server`
-
 ### Building
 
 * `ember build` (development)
 * `ember build --environment production` (production)
-
-### Deploying
-
-Specify what it takes to deploy your app.
 
 ## Further Reading / Useful Links
 
